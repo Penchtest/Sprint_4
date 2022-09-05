@@ -11,7 +11,7 @@ import ru.practikum_services.qa_scooter.OrderPage;
 
 @RunWith(Parameterized.class)
 
-public class OrderPositiveTest extends BaseUITest{
+public class OrderPositiveTest extends BaseUITest {
     private final String scenario;
     private final String name;
     private final String surname;
@@ -46,20 +46,18 @@ public class OrderPositiveTest extends BaseUITest{
     }
 
     @After
-    public void goToStartUrl(){
+    public void goToStartUrl() {
         driver.get("https://qa-scooter.praktikum-services.ru/");
     }
 
     @Test
-    public void checkSuccessfulOrderByHeaderButton()  {
+    public void checkSuccessfulOrder() {
         MainPage objMainPage = new MainPage(driver);
         objMainPage.closeCookieWindow();
         objMainPage.clickOrderButtonByScenario(scenario);
-        OrderPage objPage = new OrderPage(driver);
-        objPage.fillOrderForm(name, surname, address, metro, phone, deliveryTime, days, colour, comment);
-        objPage.confirmOrder();
-        Assert.assertTrue("Заказ должен сформроваться", objPage.checkOrder());
+        OrderPage objOrderPage = new OrderPage(driver);
+        objOrderPage.fillOrderForm(name, surname, address, metro, phone, deliveryTime, days, colour, comment);
+        objOrderPage.confirmOrder();
+        Assert.assertTrue("Заказ должен сформироваться", objOrderPage.checkOrder());
     }
-
-
 }

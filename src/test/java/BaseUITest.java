@@ -12,8 +12,15 @@ public abstract class BaseUITest {
 
     @BeforeClass
     public static void startUp() {
+        //настройки для браузера Chrome:
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
+
+        /* настройки для браузера Firefox:
+        WebDriverManager.firefoxdriver().setup();
+        driver = new FirefoxDriver();
+        */
+
         driver.get("https://qa-scooter.praktikum-services.ru/");
         driver.manage().window().maximize();
         MainPage objMainPage = new MainPage(driver);
@@ -21,10 +28,10 @@ public abstract class BaseUITest {
     }
 
     @After
-    public void clearData(){
+    public void clearData() {
         driver.manage().deleteAllCookies();
-        ((WebStorage)driver).getSessionStorage().clear();
-        ((WebStorage)driver).getLocalStorage().clear();
+        ((WebStorage) driver).getSessionStorage().clear();
+        ((WebStorage) driver).getLocalStorage().clear();
     }
 
     @AfterClass

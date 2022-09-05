@@ -5,6 +5,7 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 
 public class OrderPage {
@@ -28,7 +29,7 @@ public class OrderPage {
     //Поле для ввода даты
     private By deliveryTimeField = By.xpath("//input[@placeholder='* Когда привезти самокат']");
     //Элементы выпадающего списка со сроком аренды
-    private By timeRentDropDown  = By.xpath("//div[@class='Dropdown-option']");
+    private final By timeRentDropDown = By.xpath("//div[@class='Dropdown-option']");
     //Поле "Срок аренды"
     private By timeRentField = By.xpath("//div[text()='* Срок аренды']");
     //Чекбокс для цвета чёрный жемчуг
@@ -42,7 +43,7 @@ public class OrderPage {
     //Кнопка "Да" в подтверждении заказа
     private By yesButton = By.xpath(".//button[text()='Да']");
     //Окно с информацией об успешно созданном заказе
-    private By orderModalWindow = By.xpath("//div[@class='Order_ModalHeader__3FDaJ']");
+    private final By orderModalWindow = By.xpath("//div[@class='Order_ModalHeader__3FDaJ' and text()='Заказ оформлен']");
 
     //Подсказка при вводе некорректного имени
     private By nameErrorMessage = By.xpath(".//div[text()='Введите корректное имя']");
@@ -69,7 +70,7 @@ public class OrderPage {
     }
 
     //Заполнение формы заказа
-    public void fillOrderForm (String name, String surname, String address, String metro, String phone, String deliveryTime, int days, String colour, String comment) {
+    public void fillOrderForm(String name, String surname, String address, String metro, String phone, String deliveryTime, int days, String colour, String comment) {
         driver.findElement(nameField).sendKeys(name);
         driver.findElement(surnameField).sendKeys(surname);
         driver.findElement(addressField).sendKeys(address);
@@ -82,64 +83,76 @@ public class OrderPage {
         driver.findElement(deliveryTimeField).sendKeys(Keys.ENTER);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.findElement(timeRentField).click();
-        (driver.findElements(timeRentDropDown)).get(days-1).click();
+        (driver.findElements(timeRentDropDown)).get(days - 1).click();
         if (colour.equals(BLACK_COLOUR)) {
-            driver.findElement(blackColourCheckbox).click();}
+            driver.findElement(blackColourCheckbox).click();
+        }
         if (colour.equals(GREY_COLOUR)) {
-            driver.findElement(greyColourCheckbox).click();}
+            driver.findElement(greyColourCheckbox).click();
+        }
         driver.findElement(commentField).sendKeys(comment);
         driver.findElement(orderButton).click();
     }
 
     //методы для получения ошибок при некорректных данных
-    public void fillNameOrderForm(String name){
+    public void fillNameOrderForm(String name) {
         driver.findElement(nameField).sendKeys(name);
         driver.findElement(nextButton).click();
     }
-    public void fillSurnameOrderForm(String surname){
+
+    public void fillSurnameOrderForm(String surname) {
         driver.findElement(surnameField).sendKeys(surname);
         driver.findElement(nextButton).click();
     }
-    public void fillAddressOrderForm(String address){
+
+    public void fillAddressOrderForm(String address) {
         driver.findElement(addressField).sendKeys(address);
         driver.findElement(nextButton).click();
     }
-    public void emptyMetroOrderForm(){
+
+    public void emptyMetroOrderForm() {
         driver.findElement(nextButton).click();
     }
+
     public void fillPhoneOrderForm(String phone) {
         driver.findElement(phoneField).sendKeys(phone);
         driver.findElement(nextButton).click();
     }
 
     //метод подтверждения заказа
-    public void confirmOrder(){
+    public void confirmOrder() {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(yesButton));
-        driver.findElement(yesButton).click();}
+        driver.findElement(yesButton).click();
+    }
 
     //поиск окна с информацией о созданном заказе
-    public boolean checkOrder(){
-        return driver.findElement(orderModalWindow).isDisplayed();}
+    public boolean checkOrder() {
+        return driver.findElement(orderModalWindow).isDisplayed();
+    }
 
     //получение текста ошибки при вводе некорректных данных
-    public String getNameErrorMessage(){
+    public String getNameErrorMessage() {
         return driver.findElement(nameErrorMessage).getText();
     }
-    public String getSurNameErrorMessage(){
+
+    public String getSurNameErrorMessage() {
         return driver.findElement(surnameErrorMessage).getText();
     }
-    public String getAddressErrorMessage(){
+
+    public String getAddressErrorMessage() {
         return driver.findElement(addressErrorMessage).getText();
     }
-    public String getMetroErrorMessage(){
+
+    public String getMetroErrorMessage() {
         return driver.findElement(metroErrorMessage).getText();
     }
-    public String getPhoneErrorMessage(){
+
+    public String getPhoneErrorMessage() {
         return driver.findElement(phoneErrorMessage).getText();
     }
 
     //Ввести номер заказа
-    public void enterOrderNumber(String orderNumber){
+    public void enterOrderNumber(String orderNumber) {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(statusOrderButton));
         driver.findElement(statusOrderButton).click();
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(orderNumberField));
@@ -149,9 +162,10 @@ public class OrderPage {
     }
 
     //Проверка, появилось ли окно с информацией о заказе
-    public boolean orderNotFoundIsDisplayed(){
+    public boolean orderNotFoundIsDisplayed() {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(orderNotFoundImage));
-        return driver.findElement(orderNotFoundImage).isDisplayed();}
+        return driver.findElement(orderNotFoundImage).isDisplayed();
+    }
 }
 
 

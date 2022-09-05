@@ -2,14 +2,10 @@ package ru.practikum_services.qa_scooter;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.junit.Assert;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
-
-import static org.junit.Assert.assertEquals;
 
 public class MainPage {
     private WebDriver driver;
@@ -68,77 +64,80 @@ public class MainPage {
     }
 
     //Закрыть окно с куками
-    public void closeCookieWindow(){
-        if (driver.findElements(acceptCookieButton).size()>0) {driver.findElement(acceptCookieButton).click();}
+    public void closeCookieWindow() {
+        if (driver.findElements(acceptCookieButton).size() > 0) {
+            driver.findElement(acceptCookieButton).click();
+        }
     }
+
     //Проверка соответствия ответов на вопросы
-    public void checkFaqHowMuchCost() {
-        String expected = "Сутки — 400 рублей. Оплата курьеру — наличными или картой.";
+    public String getAnswerFaqHowMuchCost() {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(faqHowMuchCost));
         driver.findElement(faqHowMuchCost).click();
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(answerHowMuchCost));
-        assertEquals("Текст не сходится", expected, driver.findElement(answerHowMuchCost).getText());
+        return (driver.findElement(answerHowMuchCost).getText());
+
     }
 
-    public void checkFaqSeveralScooters() {
-        String expected = "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.";
+    public String getAnswerFaqSeveralScooters() {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(faqSeveralScooters));
         driver.findElement(faqSeveralScooters).click();
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(answerSeveralScooters));
-        assertEquals(expected, driver.findElement(answerSeveralScooters).getText());
+        return (driver.findElement(answerSeveralScooters).getText());
     }
-    public void checkFaqRentTime() {
-        String expected = "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.";
+
+    public String getAnswerFaqRentTime() {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(faqRentTime));
         driver.findElement(faqRentTime).click();
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(answerRentTime));
-        assertEquals(expected, driver.findElement(answerRentTime).getText());
+        return (driver.findElement(answerRentTime).getText());
     }
-    public void checkFaqRentToday() {
-        String expected = "Только начиная с завтрашнего дня. Но скоро станем расторопнее.";
+
+    public String getAnswerFaqRentToday() {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(faqRentToday));
         driver.findElement(faqRentToday).click();
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOfElementLocated(answerRentToday));
-        assertEquals(expected, driver.findElement(answerRentToday).getText());
+        return (driver.findElement(answerRentToday).getText());
     }
-    public void checkFaqRentLonger() {
-        String expected = "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010.";
+
+    public String getAnswerFaqRentLonger() {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(faqRentLonger));
         driver.findElement(faqRentLonger).click();
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(answerRentLonger));
-        assertEquals(expected, driver.findElement(answerRentLonger).getText());
+        return (driver.findElement(answerRentLonger).getText());
     }
-    public void checkFaqCharge() {
-        String expected = "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.";
+
+    public String getAnswerFaqCharge() {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(faqCharge));
         driver.findElement(faqCharge).click();
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(answerCharge));
-        assertEquals(expected, driver.findElement(answerCharge).getText());
+        return (driver.findElement(answerCharge).getText());
     }
-    public void checkFaqCancelOrder() {
-        String expected = "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.";
+
+    public String getAnswerFaqCancelOrder() {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(faqCancelOrder));
         driver.findElement(faqCancelOrder).click();
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(answerCancelOrder));
-        assertEquals(expected, driver.findElement(answerCancelOrder).getText());
+        return (driver.findElement(answerCancelOrder).getText());
     }
-    public void checkFaqMkad() {
-        String expected = "Да, обязательно. Всем самокатов! И Москве, и Московской области.";
+
+    public String getAnswerFaqMkad() {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(faqMkad));
         driver.findElement(faqMkad).click();
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.elementToBeClickable(answerMkad));
-        assertEquals(expected, driver.findElement(answerMkad).getText());
+        return (driver.findElement(answerMkad).getText());
     }
-    public void clickOrderButtonHeader(){
+
+    public void clickOrderButtonHeader() {
         driver.findElement(orderButtonHeader).click();
     }
 
-    public void clickOrderButtonMiddle(){
+    public void clickOrderButtonMiddle() {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.findElement(orderButtonMiddle).click();
     }
 
-    public void clickOrderButtonByScenario(String scenario){
+    public void clickOrderButtonByScenario(String scenario) {
         if (scenario.equals(scenarioHeaderButton))
             driver.findElement(orderButtonHeader).click();
         if (scenario.equals(scenarioMiddleButton))
@@ -147,9 +146,12 @@ public class MainPage {
 
 
     //Нажатие логотипов
-    public void clickLogoScooter(){
+    public void clickLogoScooter() {
         driver.findElement(logoScooter).click();
     }
-    public void clickLogoYandex(){driver.findElement(logoYandex).click();}
+
+    public void clickLogoYandex() {
+        driver.findElement(logoYandex).click();
+    }
 
 }
